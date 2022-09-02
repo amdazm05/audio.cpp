@@ -1,23 +1,38 @@
 #ifndef __AUDIOCPP
 #define __AUDIOCPP
-#include <stdint.h>
-#include "utils.h"
+#include "utility/utils.h"
 
+template<class datatype>
 class AudioSignal
 {
-    private:
+    protected:
+        template<class datatype>
         struct BitDepth
         {
-            
+            datatype depth;
         };
 
+        template<class datatype>
         struct Sample
         {
-            //This can be specified by the USER on what kind of signal representation is required
-            BitDepth * samples;   
+            BitDepth<datatype> * samples;
         };
+
+        Sample<datatype> audiosignal;
+        int SampleRate;
+        uint8_t BitsPerSample;
+
     public:
-        
+        virtual void load_audio(uint8_t buffer)=0;
+};
+
+//Reading : http://soundfile.sapp.org/doc/WaveFormat/
+template<class datatype>
+class WAVFormatSignal:AudioSignal
+{
+    private:
+
+    public:
 };
 
 #endif
